@@ -36,6 +36,8 @@ class Cell
       return '.'
     elsif fired_upon? == true && @ship == nil
       return 'M'
+    elsif @ship.sunk? == true && @ship
+      return 'X'
     elsif fired_upon? == true && @ship
       return 'H'
     elsif @ship && reveal == true
