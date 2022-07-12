@@ -5,6 +5,7 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
+    @fired = false
   end
 
   def empty?
@@ -20,25 +21,20 @@ class Cell
   end
 
   def fire_upon
+    @fired = true
     if @ship
       @ship.health == @ship.hit
-    else
-      return true
     end
   end
 
   def fired_upon?
-    if @ship
-      @ship.health < @ship.length
-    else
-      false
-    end
+    return @fired
   end
 
   def render(reveal = false)
     if fired_upon? == false && @ship == nil
       return '.'
-    else fire_upon == true && @ship == nil
+    else fired_upon? == true && @ship == nil
       return 'M'
     end
   end
