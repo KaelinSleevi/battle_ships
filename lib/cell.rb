@@ -20,10 +20,26 @@ class Cell
   end
 
   def fire_upon
-    @ship.health == @ship.hit
+    if @ship
+      @ship.health == @ship.hit
+    else
+      return true
+    end
   end
 
   def fired_upon?
-    @ship.health < @ship.length
+    if @ship
+      @ship.health < @ship.length
+    else
+      false
+    end
+  end
+
+  def render(reveal = false)
+    if fired_upon? == false && @ship == nil
+      return '.'
+    else fire_upon == true && @ship == nil
+      return 'M'
+    end
   end
 end

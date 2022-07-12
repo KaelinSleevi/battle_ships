@@ -43,4 +43,23 @@ RSpec.describe Cell do
     expect(cell.fired_upon?).to eq(true)
   end
 
+  it 'can render if cell_1 has not been fired upon' do
+    cell_1 = Cell.new('B4')
+
+    expect(cell_1.render).to eq('.')
+
+    cell_1.fire_upon
+
+    expect(cell_1.render).to eq('M')
+  end
+
+  xit 'can render if cell_2 has not been fired upon' do
+    cell_2 = Cell.new('C3')
+    ship = Ship.new('cruiser', 3)
+    cell_2.place_ship(ship)
+
+    expect(cell_2.render).to eq('.')
+
+    expect(cell_2.render(true)).to eq('S')
+  end
 end
