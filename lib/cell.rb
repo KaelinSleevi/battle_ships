@@ -15,8 +15,4 @@ class Cell
     end
   end
 
-  def place_ship
-
-  end
-
 end
