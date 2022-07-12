@@ -53,7 +53,7 @@ RSpec.describe Cell do
     expect(cell_1.render).to eq('M')
   end
 
-  xit 'can render if cell_2 has not been fired upon' do
+  it 'can render if cell_2 has not been fired upon' do
     cell_2 = Cell.new('C3')
     ship = Ship.new('cruiser', 3)
     cell_2.place_ship(ship)
