@@ -1,6 +1,6 @@
 require './lib/board'
 require './lib/cell'
-#require 'rspec'
+require 'rspec'
 
 describe Board do
 
@@ -19,7 +19,6 @@ describe Board do
   it 'has sixteen key-value pairs' do
     board = Board.new
 
-    #board_size = board.size
     expect(board.cells.size).to eq(16)
   end
 
@@ -27,7 +26,16 @@ describe Board do
     board = Board.new
 
     expect(board.valid_coordinate?('A1')).to eq(true)
+    expect(board.valid_coordinate?('B4')).to eq(true)
+    expect(board.valid_coordinate?('C4')).to eq(true)
   end
 
+  it 'if provided invalid coordinate, returns false' do
+    board = Board.new
+
+    expect(board.valid_coordinate?('A5')).to eq(false)
+    expect(board.valid_coordinate?('B5')).to eq(false)
+    expect(board.valid_coordinate?('C5')).to eq(false)
+  end
 
 end
