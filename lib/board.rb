@@ -1,3 +1,4 @@
+require 'pry'
 class Board
   attr_reader :cells
 
@@ -27,6 +28,12 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
+    # idea: split the array by letter and int
+    # possibly use all? to make sure horizontal is all the same letter
+    # array.all? { |str| str == 'A' || str == 'B' || str == 'C' || str == 'D' }
+    array = ['A', 'B', 'C', 'D']
+    arr = [1,2,3]
+    binding.pry
     if ship.length == coordinates.length
       return true
     else

@@ -40,7 +40,7 @@ describe Board do
     expect(@board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
   end
 
-  it 'valid_placement? returns true if correct ship length placed' do
+  xit 'valid_placement? returns true if correct ship length placed' do
     cruiser = Ship.new("cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
