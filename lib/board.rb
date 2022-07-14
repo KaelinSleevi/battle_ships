@@ -1,4 +1,3 @@
-require 'pry'
 class Board
   attr_reader :cells
 
@@ -28,36 +27,22 @@ class Board
   end
 
   def horizontal_placement?(coordinates)
-    consec_num = ("1".."4")
-    #consec_letter = ("A".."D").to_a
-    #letter_arr = coordinates.map {|coordinate| coordinate.slice(0)}
-    #num_arr = coordinates.map {|coordinate| coordinate.slice(1..2).to_i}
-    consec_num.include?(coordinates)
-
-    #horizontal_placement?(coordinates.map { |cell| cell[0] })
+    letter_arr = coordinates.map {|coordinate| coordinate.slice(0)}
+    num_arr = coordinates.map {|coordinate| coordinate.slice(1..2).to_i}
+    (letter_arr.uniq.count == 1 && (num_arr.min..num_arr.max).to_a == num_arr)
   end
 
-  def vertical_placement?(coordinates)
-    #consec_num = (1..4).to_a
-    consec_letter = ("A".."D")
-    #letter_arr = coordinates.map {|coordinate| coordinate.slice(0)}
-    #num_arr = coordinates.map {|coordinate| coordinate.slice(1..2).to_i}
-
-    consec_letter.include?(coordinates)
-    #vertical_placement?(coordinates.map { |cell| cell[0] })
+  def vertical_placement?(ship, coordinates)
+    letter_arr = coordinates.map {|coordinate| coordinate.slice(0)}
+    num_arr = coordinates.map {|coordinate| coordinate.slice(1..2).to_i}
+    (num_arr.all?(num_arr[0]) && (letter_arr[0].ord + (ship.length - 1)) == letter_arr.last.ord)
   end
 
   def valid_placement?(ship, coordinates)
-    if ship.length == coordinates.length
-      if vertical_placement?(coordinates)
-        vertical_placement(coordinates.map { |cell| cell[0] }) && coordinates.map { |cell| cell[1]  }.uniq.count == 1
-        true
-      elsif horizontal_placement?(coordinates)
-        horizontal_placement(coordinates.map { |cell| cell[1] }) && coordinates.map { |cell| cell[0]  }.uniq.count == 1
-        true
-      else
-        false
-      end
+    if vertical_placement?(ship, coordinates) && ship.length == coordinates.length
+      true
+    elsif horizontal_placement?(coordinates) && ship.length == coordinates.length
+      true
     else
       false
     end
