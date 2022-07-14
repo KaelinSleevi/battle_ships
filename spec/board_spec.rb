@@ -42,21 +42,55 @@ describe Board do
   it 'valid_placement? returns false if incorrect ship length placed' do
     board = Board.new
 
-    cruiser = Ship.new("Crusier", 3)
+    cruiser = Ship.new("cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
-    expect(board.valid_placement?(crusier, ["A1", "A2"])).to eq(false)
+    expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
   end
 
-  it 'valid_placement? returns true if correct ship length placed' do
+  xit 'valid_placement? returns true if correct ship length placed' do
     board = Board.new
 
-    cruiser = Ship.new("Crusier", 3)
+    cruiser = Ship.new("cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
-    expect(board.valid_placement?(crusier, ["A2", "A3", "A4"])).to eq(true)
+    expect(board.valid_placement?(cruiser, ["A2", "A3", "A4"])).to eq(true)
     expect(board.valid_placement?(submarine, ["A2", "A3"])).to eq(true)
+  end
+
+  xit 'valid_placement? returns false if placement is incorrect' do
+    board = Board.new
+
+    cruiser = Ship.new("cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
+    expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
+    expect(board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
+    expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+  end
+
+  xit 'valid_placement? returns true if placement is correct' do
+    board = Board.new
+
+    cruiser = Ship.new("cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to (true)
+    expect(board.valid_placement?(submarine, ["A1", "A2"])).to (true)
+    expect(board.valid_placement?(cruiser, ["C1", "C2", "C3"])).to (true)
+    expect(board.valid_placement?(submarine, ["B1", "B2"])).to eq(true)
+  end
+
+  xit 'valid_placement? returns false if placement is diagonal' do
+    board = Board.new
+
+    cruiser = Ship.new("cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
+    expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
   end
 
 end
