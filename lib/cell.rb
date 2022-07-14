@@ -32,13 +32,13 @@ class Cell
   end
 
   def render(reveal = false)
-    if fired_upon? == false && @ship == nil
+    if !fired_upon? && @ship == nil
       return '.'
-    elsif fired_upon? == true && @ship == nil
+    elsif fired_upon? && @ship == nil
       return 'M'
-    elsif @ship.sunk? == true && @ship
+    elsif @ship.sunk? && @ship
       return 'X'
-    elsif fired_upon? == true && @ship
+    elsif fired_upon? && @ship
       return 'H'
     elsif @ship && reveal == true
       return 'S'
