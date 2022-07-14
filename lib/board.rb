@@ -27,17 +27,39 @@ class Board
     @cells.include?(coordinate)
   end
 
+  def horizontal_placement?(coordinates)
+    consec_num = ("1".."4")
+    #consec_letter = ("A".."D").to_a
+    #letter_arr = coordinates.map {|coordinate| coordinate.slice(0)}
+    #num_arr = coordinates.map {|coordinate| coordinate.slice(1..2).to_i}
+    consec_num.include?(coordinates)
+
+    #horizontal_placement?(coordinates.map { |cell| cell[0] })
+  end
+
+  def vertical_placement?(coordinates)
+    #consec_num = (1..4).to_a
+    consec_letter = ("A".."D")
+    #letter_arr = coordinates.map {|coordinate| coordinate.slice(0)}
+    #num_arr = coordinates.map {|coordinate| coordinate.slice(1..2).to_i}
+
+    consec_letter.include?(coordinates)
+    #vertical_placement?(coordinates.map { |cell| cell[0] })
+  end
+
   def valid_placement?(ship, coordinates)
-    # idea: split the array by letter and int
-    # possibly use all? to make sure horizontal is all the same letter
-    # array.all? { |str| str == 'A' || str == 'B' || str == 'C' || str == 'D' }
-    array = ['A', 'B', 'C', 'D']
-    arr = [1,2,3]
-    binding.pry
     if ship.length == coordinates.length
-      return true
+      if vertical_placement?(coordinates)
+        vertical_placement(coordinates.map { |cell| cell[0] }) && coordinates.map { |cell| cell[1]  }.uniq.count == 1
+        true
+      elsif horizontal_placement?(coordinates)
+        horizontal_placement(coordinates.map { |cell| cell[1] }) && coordinates.map { |cell| cell[0]  }.uniq.count == 1
+        true
+      else
+        false
+      end
     else
-      return false
+      false
     end
   end
 end

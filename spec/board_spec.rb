@@ -12,7 +12,7 @@ describe Board do
     expect(@board).to be_an_instance_of(Board)
   end
 
-  it 'has cells on the @board' do
+  it 'has cells on the board' do
     expect(@board.cells).to be_a_kind_of(Hash)
   end
 
@@ -40,7 +40,7 @@ describe Board do
     expect(@board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
   end
 
-  xit 'valid_placement? returns true if correct ship length placed' do
+  it 'valid_placement? returns true if correct ship length placed' do
     cruiser = Ship.new("cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
@@ -48,7 +48,7 @@ describe Board do
     expect(@board.valid_placement?(submarine, ["A2", "A3"])).to eq(true)
   end
 
-  xit 'valid_placement? returns false if placement is incorrect' do
+  it 'valid_placement? returns false if placement is incorrect' do
     cruiser = Ship.new("cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
@@ -58,17 +58,17 @@ describe Board do
     expect(@board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
   end
 
-  xit 'valid_placement? returns true if placement is correct' do
+  it 'valid_placement? returns true if placement is correct' do
     cruiser = Ship.new("cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
-    expect(@board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to (true)
-    expect(@board.valid_placement?(submarine, ["A1", "A2"])).to (true)
-    expect(@board.valid_placement?(cruiser, ["C1", "C2", "C3"])).to (true)
+    expect(@board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to eq(true)
+    expect(@board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
+    expect(@board.valid_placement?(cruiser, ["C1", "C2", "C3"])).to eq(true)
     expect(@board.valid_placement?(submarine, ["B1", "B2"])).to eq(true)
   end
 
-  xit 'valid_placement? returns false if placement is diagonal' do
+  it 'valid_placement? returns false if placement is diagonal' do
     cruiser = Ship.new("cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
