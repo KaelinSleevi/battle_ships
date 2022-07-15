@@ -1,4 +1,6 @@
 require './lib/ship'
+require './lib/board'
+require './lib/cell'
 require 'rspec'
 
 RSpec.describe Ship do
