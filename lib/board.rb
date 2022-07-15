@@ -60,7 +60,7 @@ class Board
   end
 
 
-  def render(reveal = true)
+  def render(reveal = false)
     if reveal == true
       board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.slice(1..3)
       render_arr = @cells.keys.map {|key| @cells[key].render(true)}
@@ -78,6 +78,7 @@ class Board
           counter = 0
         end
       end
+      return render_str
     else
       board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.slice(1..3)
       render_arr = @cells.keys.map {|key| @cells[key].render}
@@ -95,6 +96,7 @@ class Board
           counter = 0
         end
       end
+      return render_str
     end
   end
 end

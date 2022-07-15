@@ -135,6 +135,8 @@ describe Board do
     cruiser = Ship.new('cruiser', 3)
     @board.place(cruiser, %w[A1 A2 A3])
 
-    
+    expect(@board.render.strip).to eq("1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .")
+
+    expect(@board.render(true).strip).to eq("1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . .")
   end
 end
