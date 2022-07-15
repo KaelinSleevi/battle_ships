@@ -50,13 +50,33 @@ class Board
     end
 
 
-
   def place(ship, coordinates)
     if coordinates.map { |coordinate| valid_coordinate?(coordinate)  } && valid_placement?(ship, coordinates)
       coordinates.map { |coordinate|  @cells[coordinate].place_ship(ship) }
       true
     else
       false
+    end
+  end
+
+
+  def render(reveal = false)
+    # for every cell in the hash, call render on each cell, and return the output
+    if reveal == true
+      render_true_arr = @cells.keys.map {|key| @cells[key].render(true)}
+    else
+      render_arr = @cells.keys.map {|key| @cells[key].render}
+      render_str = " 1 2 3 4 \nA "
+      counter = 0
+      render_arr.each do |render|
+        render_str = render_str + render.to_s + " "
+        counter += 1
+        if counter == 4
+          render_str = render_str + "\n" + " "
+          counter = 0
+        end
+      end
+      require 'pry'; binding.pry
     end
   end
 
