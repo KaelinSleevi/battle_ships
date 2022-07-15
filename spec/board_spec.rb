@@ -33,84 +33,84 @@ describe Board do
   end
 
   it 'valid_placement? returns false if incorrect ship length placed' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
-    expect(@board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
+    expect(@board.valid_placement?(cruiser, %w[A1 A2])).to eq(false)
+    expect(@board.valid_placement?(submarine, %w[A2 A3 A4])).to eq(false)
   end
 
   it 'valid_placement? returns true if correct ship length placed' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.valid_placement?(cruiser, ["A2", "A3", "A4"])).to eq(true)
-    expect(@board.valid_placement?(submarine, ["A2", "A3"])).to eq(true)
+    expect(@board.valid_placement?(cruiser, %w[A2 A3 A4])).to eq(true)
+    expect(@board.valid_placement?(submarine, %w[A2 A3])).to eq(true)
   end
 
   it 'valid_placement? returns false if placement is incorrect (horizontal)' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
-    expect(@board.valid_placement?(submarine, ["C1", "C4"])).to eq(false)
-    expect(@board.valid_placement?(cruiser, ["A3", "A2", "A1"])).to eq(false)
-    expect(@board.valid_placement?(submarine, ["B1", "B3"])).to eq(false)
+    expect(@board.valid_placement?(cruiser, %w[A1 A2 A4])).to eq(false)
+    expect(@board.valid_placement?(submarine, %w[C1 C4])).to eq(false)
+    expect(@board.valid_placement?(cruiser, %w[A3 A2 A1])).to eq(false)
+    expect(@board.valid_placement?(submarine, %w[B1 B3])).to eq(false)
   end
 
   it 'valid_placement? returns true if placement is correct (horizontal)' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to eq(true)
-    expect(@board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
-    expect(@board.valid_placement?(cruiser, ["C1", "C2", "C3"])).to eq(true)
-    expect(@board.valid_placement?(submarine, ["B1", "B2"])).to eq(true)
+    expect(@board.valid_placement?(cruiser, %w[A1 A2 A3])).to eq(true)
+    expect(@board.valid_placement?(submarine, %w[A1 A2])).to eq(true)
+    expect(@board.valid_placement?(cruiser, %w[C1 C2 C3])).to eq(true)
+    expect(@board.valid_placement?(submarine, %w[B1 B2])).to eq(true)
   end
 
   it 'valid_placement? returns false if placement is incorrect (vertical)' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.valid_placement?(cruiser, ["A1", "B1", "D1"])).to eq(false)
-    expect(@board.valid_placement?(submarine, ["A2", "C2"])).to eq(false)
+    expect(@board.valid_placement?(cruiser, %w[A1 B1 D1])).to eq(false)
+    expect(@board.valid_placement?(submarine, %w[A2 C2])).to eq(false)
   end
 
   it 'valid_placement? returns true if placement is correct (vertical)' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.valid_placement?(cruiser, ["A1", "B1", "C1"])).to eq(true)
-    expect(@board.valid_placement?(submarine, ["C1", "D1"])).to eq(true)
+    expect(@board.valid_placement?(cruiser, %w[A1 B1 C1])).to eq(true)
+    expect(@board.valid_placement?(submarine, %w[C1 D1])).to eq(true)
   end
 
   it 'valid_placement? returns false if placement is diagonal' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
-    expect(@board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
+    expect(@board.valid_placement?(cruiser, %w[A1 B2 C3])).to eq(false)
+    expect(@board.valid_placement?(submarine, %w[C2 D3])).to eq(false)
   end
 
   it ' expects place ship on the board to be true' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.place(cruiser, ['A1', 'A2', 'A3'])).to eq(true)
-    expect(@board.place(submarine, ['C2', 'D2'])).to eq(true)
+    expect(@board.place(cruiser, %w[A1 A2 A3])).to eq(true)
+    expect(@board.place(submarine, %w[C2 D2])).to eq(true)
   end
   it ' expects place ship on the board to be false' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
 
-    expect(@board.place(cruiser, ['A1', 'A2', 'A4'])).to eq(false)
-    expect(@board.place(submarine, ['C2', 'D1'])).to eq(false)
+    expect(@board.place(cruiser, %w[A1 A2 A4])).to eq(false)
+    expect(@board.place(submarine, %w[C2 D1])).to eq(false)
   end
 
   it 'cells have the right ship in them' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-    @board.place(cruiser, ['A1', 'A2', 'A3'])
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
+    @board.place(cruiser, %w[A1 A2 A3])
     cell_1 = @board.cells['A1']
     cell_2 = @board.cells['A2']
     cell_3 = @board.cells['A3']
@@ -121,14 +121,22 @@ describe Board do
   end
 
   it 'can ensure ships do not overlap' do
-    cruiser = Ship.new("cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-    @board.place(cruiser, ['A1', 'A2', 'A3'])
+    cruiser = Ship.new('cruiser', 3)
+    submarine = Ship.new('Submarine', 2)
+    @board.place(cruiser, %w[A1 A2 A3])
     cell_1 = @board.cells['A1']
     cell_2 = @board.cells['A2']
     cell_3 = @board.cells['A3']
 
+    expect(@board.valid_placement?(submarine, %w[A1 B1])).to eq(false)
+  end
 
-    expect(@board.valid_placement?(submarine, ['A1', 'B1'])).to eq(false)
+  it 'renders board' do
+    cruiser = Ship.new('cruiser', 3)
+    @board.place(cruiser, %w[A1 A2 A3])
+
+    expect(@board.render.strip).to eq("1 2 3 4 \nA . . . . \nB . . . . \nC . . . . \nD . . . .")
+
+    expect(@board.render(true).strip).to eq("1 2 3 4 \nA S S S . \nB . . . . \nC . . . . \nD . . . .")
   end
 end

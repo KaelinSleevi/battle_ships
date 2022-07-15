@@ -9,7 +9,7 @@ class Cell
   end
 
   def empty?
-    if @ship == nil
+    if @ship.nil?
       true
     else
       false
@@ -22,28 +22,26 @@ class Cell
 
   def fire_upon
     @fired = true
-    if @ship
-      @ship.health == @ship.hit
-    end
+    @ship.health == @ship.hit if @ship
   end
 
   def fired_upon?
-    return @fired
+    @fired
   end
 
   def render(reveal = false)
-    if !fired_upon? && @ship == nil
-      return '.'
-    elsif fired_upon? && @ship == nil
-      return 'M'
+    if !fired_upon? && @ship.nil?
+      '.'
+    elsif fired_upon? && @ship.nil?
+      'M'
     elsif @ship.sunk? && @ship
-      return 'X'
+      'X'
     elsif fired_upon? && @ship
-      return 'H'
+      'H'
     elsif @ship && reveal == true
-      return 'S'
+      'S'
     else
-      return '.'
+      '.'
     end
   end
 end

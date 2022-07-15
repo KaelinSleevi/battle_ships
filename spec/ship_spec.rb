@@ -4,7 +4,6 @@ require './lib/cell'
 require 'rspec'
 
 RSpec.describe Ship do
-
   before(:each) do
     @ship = Ship.new('cruiser', 3)
   end

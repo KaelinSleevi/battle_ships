@@ -50,7 +50,6 @@ class Board
     end
 
 
-
   def place(ship, coordinates)
     if coordinates.map { |coordinate| valid_coordinate?(coordinate)  } && valid_placement?(ship, coordinates)
       coordinates.map { |coordinate|  @cells[coordinate].place_ship(ship) }
@@ -60,4 +59,44 @@ class Board
     end
   end
 
+
+  def render(reveal = false)
+    if reveal == true
+      board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.slice(1..3)
+      render_arr = @cells.keys.map {|key| @cells[key].render(true)}
+
+      placement_counter = 0
+      counter = 0
+      
+      render_str = "  1 2 3 4 \nA "
+      render_arr.each do |render|
+        render_str = render_str + render.to_s + " "
+        counter += 1
+        if counter == 4
+          render_str = render_str + ("\n#{board_letters[placement_counter]} ")
+          placement_counter += 1
+          counter = 0
+        end
+      end
+      return render_str
+    else
+      board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.slice(1..3)
+      render_arr = @cells.keys.map {|key| @cells[key].render}
+
+      placement_counter = 0
+      counter = 0
+      
+      render_str = "  1 2 3 4 \nA "
+      render_arr.each do |render|
+        render_str = render_str + render.to_s + " "
+        counter += 1
+        if counter == 4
+          render_str = render_str + ("\n#{board_letters[placement_counter]} ")
+          placement_counter += 1
+          counter = 0
+        end
+      end
+      return render_str
+    end
+  end
 end
