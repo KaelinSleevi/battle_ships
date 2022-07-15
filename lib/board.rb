@@ -60,27 +60,41 @@ class Board
   end
 
 
-  def render(reveal = false)
-    # for every cell in the hash, call render on each cell, and return the output
+  def render(reveal = true)
     if reveal == true
-      # render_true_arr = @cells.keys.map {|key| @cells[key].render(true)}
+      board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.slice(1..3)
+      render_arr = @cells.keys.map {|key| @cells[key].render(true)}
+
+      placement_counter = 0
+      counter = 0
+      
+      render_str = "  1 2 3 4 \nA "
+      render_arr.each do |render|
+        render_str = render_str + render.to_s + " "
+        counter += 1
+        if counter == 4
+          render_str = render_str + ("\n#{board_letters[placement_counter]} ")
+          placement_counter += 1
+          counter = 0
+        end
+      end
     else
-      board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.shift
+      board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.slice(1..3)
       render_arr = @cells.keys.map {|key| @cells[key].render}
 
       placement_counter = 0
       counter = 0
-
-      render_str = " 1 2 3 4 \nA"
+      
+      render_str = "  1 2 3 4 \nA "
       render_arr.each do |render|
         render_str = render_str + render.to_s + " "
-        if counter == 5
-          render_str + board_letters[placement_counter]
-          placement_counter + 1
+        counter += 1
+        if counter == 4
+          render_str = render_str + ("\n#{board_letters[placement_counter]} ")
+          placement_counter += 1
           counter = 0
         end
       end
-      require 'pry'; binding.pry
     end
   end
 end
