@@ -39,14 +39,17 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    if vertical_placement?(ship, coordinates) && ship.length == coordinates.length
-      true
-    elsif horizontal_placement?(coordinates) && ship.length == coordinates.length
-      true
-    else
-      false
+    return false if coordinates.any?{|coordinate| @cells[coordinate].empty? == false}
+      if vertical_placement?(ship, coordinates) && ship.length == coordinates.length
+        true
+      elsif horizontal_placement?(coordinates) && ship.length == coordinates.length
+        true
+      else
+        false
+      end
     end
-  end
+
+
 
   def place(ship, coordinates)
     if coordinates.map { |coordinate| valid_coordinate?(coordinate)  } && valid_placement?(ship, coordinates)
@@ -56,4 +59,5 @@ class Board
       false
     end
   end
+
 end
