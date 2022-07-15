@@ -63,21 +63,24 @@ class Board
   def render(reveal = false)
     # for every cell in the hash, call render on each cell, and return the output
     if reveal == true
-      render_true_arr = @cells.keys.map {|key| @cells[key].render(true)}
+      # render_true_arr = @cells.keys.map {|key| @cells[key].render(true)}
     else
+      board_letters = @cells.keys.map {|key| key.slice(0)}.uniq.shift
       render_arr = @cells.keys.map {|key| @cells[key].render}
-      render_str = " 1 2 3 4 \nA "
+
+      placement_counter = 0
       counter = 0
+
+      render_str = " 1 2 3 4 \nA"
       render_arr.each do |render|
         render_str = render_str + render.to_s + " "
-        counter += 1
-        if counter == 4
-          render_str = render_str + "\n" + " "
+        if counter == 5
+          render_str + board_letters[placement_counter]
+          placement_counter + 1
           counter = 0
         end
       end
       require 'pry'; binding.pry
     end
   end
-
 end
