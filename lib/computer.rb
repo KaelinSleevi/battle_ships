@@ -28,7 +28,6 @@ class Computer
         placements = []
         file_data = File.readlines(filename).map(&:chomp)
         file_data.map { |line| placements << line.split(',') }
-        current_number = Random.rand(placements.length)
-        placements[current_number]
+        placements.sample
     end
 end
