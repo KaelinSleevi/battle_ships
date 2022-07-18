@@ -39,14 +39,16 @@ class Board
   end
 
   def valid_placement?(ship, coordinates)
-    return false if coordinates.any? { |coordinate| @cells[coordinate].empty? == false }
+    if  coordinates.map {|coordinate| @cells.has_key?(coordinate)}.all?(true) && !coordinates.map {|coordinate| @cells.has_key?(coordinate)}.empty?
+      return false if coordinates.any? { |coordinate| @cells[coordinate].empty? == false }
 
-    if vertical_placement?(ship, coordinates) && ship.length == coordinates.length
-      true
-    elsif horizontal_placement?(coordinates) && ship.length == coordinates.length
-      true
-    else
-      false
+      if vertical_placement?(ship, coordinates) && ship.length == coordinates.length
+        true
+      elsif horizontal_placement?(coordinates) && ship.length == coordinates.length
+        true
+      else
+        false
+      end
     end
   end
 
