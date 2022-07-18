@@ -30,10 +30,8 @@ class Game
     end
 
     def computer_place_ships
-        # logic to place computer ships
         computer = Board.new
-        computer.place(@cruiser, %w[B1 B2 B3]) # needs to be random
-        computer.place(@submarine, %w[C1 D1])
+        cells = computer.cells
         puts "I have laid out my ships on the grid."
         puts "You now need to lay out your two ships."
         player_place_ships
