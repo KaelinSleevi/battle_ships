@@ -15,9 +15,7 @@ class Computer
                     placement = true
                 end
             end
-            print current_move
         end
-        print @board.render(true)
     end
 
     def move(length)
