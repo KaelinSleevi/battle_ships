@@ -30,8 +30,8 @@ class Game
     end
 
     def computer_place_ships
-        computer = Board.new
-        cells = computer.cells
+        computer = Computer.new
+        computer.place_ships
         puts "I have laid out my ships on the grid."
         puts "You now need to lay out your two ships."
         player_place_ships
