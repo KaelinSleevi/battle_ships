@@ -1,4 +1,6 @@
 class Computer
+    attr_accessor :board
+
     def initialize
         @board = Board.new
         @cruiser = Ship.new('cruiser', 3)

@@ -5,12 +5,14 @@ require './lib/game'
 require './lib/computer'
 require 'rspec'
 
-RSpec.describe Cell do
+RSpec.describe Computer do
     before(:each) do
-      @cell = Cell.new('B4')
+      @computer = Computer.new
     end
-  
+
     it 'exists' do
-      expect(@cell).to be_an_instance_of(Cell)
+      expect(@computer).to be_an_instance_of(Computer)
     end
-  end
+
+
+end
