@@ -12,16 +12,16 @@ class Game
         puts "Welcome to BATTLESHIP"
         puts "-----------------------"
         puts "Enter p to play. Enter q to quit"
-        end_game(gets.chomp.downcase)
+        quit_game(gets.chomp.downcase)
     end
 
-    def end_game(input)
+    def quit_game(input)
         if input == 'q'
             puts "You have quit the game"
         elsif input != 'p'
             puts "Incorrect input, please try again"
             puts "Enter p to play. Enter q to quit"
-            end_game(gets.chomp.downcase)
+            quit_game(gets.chomp.downcase)
         else
             start
         end
@@ -85,6 +85,17 @@ class Game
       computer_shot
     end
 
+    def end_game?
+      if @player_1_board.board.sunk? == true
+        puts "I won."
+        true
+      elsif @computer.board.sunk? == true
+        puts "You won!"
+        true
+      else
+        false
+      end
+    end
 
     def computer_shot
       input = @player_1_board.cells.keys.sample
@@ -93,7 +104,6 @@ class Game
         input = @player_1_board.cells.keys.sample
       end
       @shots_taken.push(input)
-    #  require 'pry'; binding.pry
 
       @player_1_board.cells[input].fire_upon
       if @player_1_board.cells[input].render == "M"
@@ -103,7 +113,9 @@ class Game
       elsif @player_1_board.cells[input].render == "X"
         puts "Your ship has sunk"
       end
-#      binding.pry
+      if end_game? == true
+        quit_game('q')
+      end
       render_boards
       player_shot
     end
