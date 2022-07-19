@@ -5,6 +5,7 @@ class Game
         @ships = [@cruiser, @submarine]
         @computer = []
         @player_1_board = []
+        @shots_taken = []
     end
 
     def introduction
@@ -87,11 +88,12 @@ class Game
 
     def computer_shot
       input = @player_1_board.cells.keys.sample
-      shots_taken = []
-      
-      while !@player_1_board.cells.keys.sample
-        if @shots_taken.include?(input)
 
+      while @shots_taken.include?(input)
+        input = @player_1_board.cells.keys.sample
+      end
+      @shots_taken.push(input)
+    #  require 'pry'; binding.pry
 
       @player_1_board.cells[input].fire_upon
       if @player_1_board.cells[input].render == "M"
