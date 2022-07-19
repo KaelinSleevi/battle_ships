@@ -86,14 +86,15 @@ class Game
     end
 
     def end_game?
-      if @player_1_board.board.sunk? == true
-        puts "I won."
+      player_1_ships =  @player_1_board.cells.keys.find_all { |key| @player_1_board.cells[key].empty? == false}
+      computer_ships =  @computer.board.cells.keys.find_all { |key| @computer.board.cells[key].empty? == false}
+
+      if @player_1_board.cells[player_1_ships.shift].ship.sunk? && @player_1_board.cells[player_1_ships.last].ship.sunk?
+        puts "I won!"
         true
-      elsif @computer.board.sunk? == true
+      elsif @computer.board.cells[computer_ships.shift].ship.sunk? && @computer.board.cells[computer_ships.last].ship.sunk?
         puts "You won!"
         true
-      else
-        false
       end
     end
 
@@ -107,16 +108,17 @@ class Game
 
       @player_1_board.cells[input].fire_upon
       if @player_1_board.cells[input].render == "M"
-        puts "Your ship was missed"
+        puts "Your ship at #{input} was missed"
       elsif @player_1_board.cells[input].render == "H"
-        puts "You have been hit"
+        puts "You have been hit at #{input}"
       elsif @player_1_board.cells[input].render == "X"
-        puts "Your ship has sunk"
+        puts "Your ship at #{input} has sunk"
       end
-      if end_game? == true
-        quit_game('q')
+      if end_game? == false
+        quit_game("q")
+      else
+        render_boards
+        player_shot
       end
-      render_boards
-      player_shot
     end
   end
