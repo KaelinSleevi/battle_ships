@@ -5,22 +5,23 @@ class Game
         @ships = [@cruiser, @submarine]
         @computer = []
         @player_1_board = []
+        @shots_taken = []
     end
 
     def introduction
         puts "Welcome to BATTLESHIP"
         puts "-----------------------"
         puts "Enter p to play. Enter q to quit"
-        end_game(gets.chomp.downcase)
+        quit_game(gets.chomp.downcase)
     end
 
-    def end_game(input)
+    def quit_game(input)
         if input == 'q'
             puts "You have quit the game"
         elsif input != 'p'
             puts "Incorrect input, please try again"
             puts "Enter p to play. Enter q to quit"
-            end_game(gets.chomp.downcase)
+            quit_game(gets.chomp.downcase)
         else
             start
         end
@@ -29,10 +30,15 @@ class Game
     def start
         puts "Welcome! Let's start the game."
         computer_place_ships
-        puts '=============COMPUTER BOARD============='
-        print @computer.board.render
-        puts '==============PLAYER BOARD=============='
-        print @player_1_board.render(true)
+        render_boards
+        player_shot
+    end
+
+    def render_boards
+      puts '=============COMPUTER BOARD============='
+      print @computer.board.render
+      puts '==============PLAYER BOARD=============='
+      print @player_1_board.render(true)
     end
 
     def computer_place_ships
@@ -58,4 +64,59 @@ class Game
             print @player_1_board.render(true)
         end
     end
-end
+
+    def player_shot
+      puts "Enter the coordinate for your shot:"
+      input = gets.chomp
+    #  require 'pry'; binding.pry
+      while !@player_1_board.valid_coordinate?(input)
+        puts "Invalid coordinates. Please enter a valid coordinate:"
+        input = gets.chomp
+      end
+#    require 'pry'; binding.pry
+      @computer.board.cells[input].fire_upon
+      if @computer.board.cells[input].render == "M"
+        puts "Your shot on #{input} was a miss."
+      elsif @computer.board.cells[input].render == "H"
+        puts "Your shot on #{input} was a hit."
+      elsif @computer.board.cells[input].render == "X"
+        puts "Your shot on #{input} sunk the ship."
+      end
+      computer_shot
+    end
+
+    def end_game?
+      if @player_1_board.board.sunk? == true
+        puts "I won."
+        true
+      elsif @computer.board.sunk? == true
+        puts "You won!"
+        true
+      else
+        false
+      end
+    end
+
+    def computer_shot
+      input = @player_1_board.cells.keys.sample
+
+      while @shots_taken.include?(input)
+        input = @player_1_board.cells.keys.sample
+      end
+      @shots_taken.push(input)
+
+      @player_1_board.cells[input].fire_upon
+      if @player_1_board.cells[input].render == "M"
+        puts "Your ship was missed"
+      elsif @player_1_board.cells[input].render == "H"
+        puts "You have been hit"
+      elsif @player_1_board.cells[input].render == "X"
+        puts "Your ship has sunk"
+      end
+      if end_game? == true
+        quit_game('q')
+      end
+      render_boards
+      player_shot
+    end
+  end
