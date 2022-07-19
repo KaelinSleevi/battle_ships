@@ -67,13 +67,11 @@ class Game
 
     def player_shot
       puts "Enter the coordinate for your shot:"
-      input = gets.chomp
-    #  require 'pry'; binding.pry
+      input = gets.chomp.upcase
       while !@player_1_board.valid_coordinate?(input)
         puts "Invalid coordinates. Please enter a valid coordinate:"
-        input = gets.chomp
+        input = gets.chomp.upcase
       end
-#    require 'pry'; binding.pry
       @computer.board.cells[input].fire_upon
       if @computer.board.cells[input].render == "M"
         puts "Your shot on #{input} was a miss."
@@ -91,11 +89,12 @@ class Game
 
       if @player_1_board.cells[player_1_ships.shift].ship.sunk? && @player_1_board.cells[player_1_ships.last].ship.sunk?
         puts "I won!"
-        true
+        return true
       elsif @computer.board.cells[computer_ships.shift].ship.sunk? && @computer.board.cells[computer_ships.last].ship.sunk?
         puts "You won!"
-        true
+        return true
       end
+      false
     end
 
     def computer_shot
@@ -114,7 +113,7 @@ class Game
       elsif @player_1_board.cells[input].render == "X"
         puts "Your ship at #{input} has sunk"
       end
-      if end_game? == false
+      if end_game? == true
         quit_game("q")
       else
         render_boards
