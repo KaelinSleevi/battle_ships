@@ -29,10 +29,15 @@ class Game
     def start
         puts "Welcome! Let's start the game."
         computer_place_ships
-        puts '=============COMPUTER BOARD============='
-        print @computer.board.render
-        puts '==============PLAYER BOARD=============='
-        print @player_1_board.render(true)
+        render_boards
+        player_shot
+    end
+
+    def render_boards
+      puts '=============COMPUTER BOARD============='
+      print @computer.board.render
+      puts '==============PLAYER BOARD=============='
+      print @player_1_board.render(true)
     end
 
     def computer_place_ships
@@ -58,4 +63,46 @@ class Game
             print @player_1_board.render(true)
         end
     end
-end
+
+    def player_shot
+      puts "Enter the coordinate for your shot:"
+      input = gets.chomp
+    #  require 'pry'; binding.pry
+      while !@player_1_board.valid_coordinate?(input)
+        puts "Invalid coordinates. Please enter a valid coordinate:"
+        input = gets.chomp
+      end
+#    require 'pry'; binding.pry
+      @computer.board.cells[input].fire_upon
+      if @computer.board.cells[input].render == "M"
+        puts "Your shot on #{input} was a miss."
+      elsif @computer.board.cells[input].render == "H"
+        puts "Your shot on #{input} was a hit."
+      elsif @computer.board.cells[input].render == "X"
+        puts "Your shot on #{input} sunk the ship."
+      end
+      computer_shot
+    end
+
+
+    def computer_shot
+      input = @player_1_board.cells.keys.sample
+      shots_taken = []
+      
+      while !@player_1_board.cells.keys.sample
+        if @shots_taken.include?(input)
+
+
+      @player_1_board.cells[input].fire_upon
+      if @player_1_board.cells[input].render == "M"
+        puts "Your ship was missed"
+      elsif @player_1_board.cells[input].render == "H"
+        puts "You have been hit"
+      elsif @player_1_board.cells[input].render == "X"
+        puts "Your ship has sunk"
+      end
+#      binding.pry
+      render_boards
+      player_shot
+    end
+  end
