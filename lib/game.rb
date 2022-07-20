@@ -5,7 +5,8 @@ class Game
         @ships = [@cruiser, @submarine]
         @computer = []
         @player_1_board = []
-        @shots_taken = []
+        @shots_taken_computer = []
+        @shots_taken_player = []
     end
 
     def introduction
@@ -68,10 +69,13 @@ class Game
     def player_shot
       puts "Enter the coordinate for your shot:"
       input = gets.chomp.upcase
-      while !@player_1_board.valid_coordinate?(input)
+      while !@player_1_board.valid_coordinate?(input) || @shots_taken_player.include?(input)
         puts "Invalid coordinates. Please enter a valid coordinate:"
         input = gets.chomp.upcase
       end
+
+      @shots_taken_player.push(input)
+
       @computer.board.cells[input].fire_upon
       if @computer.board.cells[input].render == "M"
         puts "Your shot on #{input} was a miss."
@@ -100,10 +104,10 @@ class Game
     def computer_shot
       input = @player_1_board.cells.keys.sample
 
-      while @shots_taken.include?(input)
+      while @shots_taken_computer.include?(input)
         input = @player_1_board.cells.keys.sample
       end
-      @shots_taken.push(input)
+      @shots_taken_computer.push(input)
 
       @player_1_board.cells[input].fire_upon
       if @player_1_board.cells[input].render == "M"
