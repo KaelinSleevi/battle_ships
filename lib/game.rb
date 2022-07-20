@@ -70,8 +70,13 @@ class Game
       puts "Enter the coordinate for your shot:"
       input = gets.chomp.upcase
       while !@player_1_board.valid_coordinate?(input) || @shots_taken_player.include?(input)
-        puts "Invalid coordinates. Please enter a valid coordinate:"
-        input = gets.chomp.upcase
+        if !@player_1_board.valid_coordinate?(input)
+          puts "Invalid coordinates. Please enter a valid coordinate:"
+          input = gets.chomp.upcase
+        elsif @shots_taken_player.include?(input)
+          puts "You have already taken a shot at this coordinate. Try again:"
+          input = gets.chomp.upcase
+        end
       end
 
       @shots_taken_player.push(input)
