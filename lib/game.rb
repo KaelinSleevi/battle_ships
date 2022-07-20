@@ -5,7 +5,8 @@ class Game
         @ships = [@cruiser, @submarine]
         @computer = []
         @player_1_board = []
-        @shots_taken = []
+        @shots_taken_computer = []
+        @shots_taken_player = []
     end
 
     def introduction
@@ -67,13 +68,14 @@ class Game
 
     def player_shot
       puts "Enter the coordinate for your shot:"
-      input = gets.chomp
-    #  require 'pry'; binding.pry
-      while !@player_1_board.valid_coordinate?(input)
+      input = gets.chomp.upcase
+      while !@player_1_board.valid_coordinate?(input) || @shots_taken_player.include?(input)
         puts "Invalid coordinates. Please enter a valid coordinate:"
-        input = gets.chomp
+        input = gets.chomp.upcase
       end
-#    require 'pry'; binding.pry
+
+      @shots_taken_player.push(input)
+
       @computer.board.cells[input].fire_upon
       if @computer.board.cells[input].render == "M"
         puts "Your shot on #{input} was a miss."
@@ -91,20 +93,21 @@ class Game
 
       if @player_1_board.cells[player_1_ships.shift].ship.sunk? && @player_1_board.cells[player_1_ships.last].ship.sunk?
         puts "I won!"
-        true
+        return true
       elsif @computer.board.cells[computer_ships.shift].ship.sunk? && @computer.board.cells[computer_ships.last].ship.sunk?
         puts "You won!"
-        true
+        return true
       end
+      false
     end
 
     def computer_shot
       input = @player_1_board.cells.keys.sample
 
-      while @shots_taken.include?(input)
+      while @shots_taken_computer.include?(input)
         input = @player_1_board.cells.keys.sample
       end
-      @shots_taken.push(input)
+      @shots_taken_computer.push(input)
 
       @player_1_board.cells[input].fire_upon
       if @player_1_board.cells[input].render == "M"
@@ -114,8 +117,8 @@ class Game
       elsif @player_1_board.cells[input].render == "X"
         puts "Your ship at #{input} has sunk"
       end
-      if end_game? == false
-        quit_game("q")
+      if end_game? == true
+        introduction
       else
         render_boards
         player_shot
