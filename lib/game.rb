@@ -118,7 +118,7 @@ class Game
         puts "Your ship at #{input} has sunk"
       end
       if end_game? == true
-        quit_game("q")
+        introduction
       else
         render_boards
         player_shot
